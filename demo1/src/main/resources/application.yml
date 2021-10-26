@@ -1,0 +1,10 @@
+# 应用名称
+spring.application.name: demo1
+
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+
+## 自定义属性
+#cn.tedu.jt.spring.demo1:
+#  hello: "Hello, world!"

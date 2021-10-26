@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "cn.tedu.jt.spring.demo1.hello",
+      "type": "java.lang.String",
+      "description": "Description for cn.tedu.jt.spring.demo1.hello."
+  }
+] }
