@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace是mybaits映射文件的唯一标识,与接口对应-->
+<mapper namespace="com.jt.mapper.UserMapper">
+    <!--id 表示接口方法
+        resultType 返回值结果类型
+    -->
+    <select id="findAll" resultType="com.jt.pojo.User">
+        select * from demo_user
+    </select>
+
+    <!--根据ID查询用户数据-->
+    <select id="findUserById" parameterType="Integer" resultType="com.jt.pojo.User">
+        select * from demo_user where id = #{id}
+    </select>
+
+    <!--实现数据新增 新增成功之后自动返回影响的行数
+        数据取值时 使用#{属性名} 获取数据
+    -->
+    <insert id="saveUser" parameterType="com.jt.pojo.User">
+        insert into demo_user(id,name,age,sex) value (null,#{name},#{age},#{sex})
+    </insert>
+    
+    <update id="updateUser" parameterType="com.jt.pojo.User">
+        update demo_user set name = #{name}, age = #{age}, sex = #{sex} where id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from demo_user where id = #{id}
+    </delete>
+
+
+    <!--特殊转义字符
+        > &gt;
+        < &lt;
+        & &amp;
+        万能转义标签   <![CDATA[ 需要转义的内容 ]]>
+    -->
+    <select id="findUserListByAge" parameterType="map" resultType="com.jt.pojo.User">
+        select * from demo_user where age >= #{minAge} and age &lt;= #{maxAge}
+    </select>
+
+    <!--<select id="selectUserListByLike" resultType="com.jt.pojo.User">
+        select * from demo_user where name like "%"#{name}"%"
+    </select>-->
+    <select id="selectUserListByLike" resultType="com.jt.pojo.User">
+        select * from demo_user where name like #{name}
+    </select>
+</mapper>
