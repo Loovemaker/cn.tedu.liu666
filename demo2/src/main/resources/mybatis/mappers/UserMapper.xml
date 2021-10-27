@@ -5,5 +5,7 @@
 
 <!--namespace是mybaits映射文件的唯一标识,与接口对应-->
 <mapper namespace="cn.tedu.mybatis.demo2.mapper.UserMapper">
-    
+    <select id="findAll" resultType="cn.tedu.mybatis.demo2.pojo.User">
+        select * from demo_user
+    </select>
 </mapper>
