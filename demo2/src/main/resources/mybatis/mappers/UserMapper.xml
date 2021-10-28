@@ -5,7 +5,44 @@
 
 <!--namespace是mybaits映射文件的唯一标识,与接口对应-->
 <mapper namespace="cn.tedu.mybatis.demo2.mapper.UserMapper">
+
     <select id="findAll" resultType="cn.tedu.mybatis.demo2.pojo.User">
         select * from demo_user
+    </select>
+
+    <select id="findUserById" resultType="cn.tedu.mybatis.demo2.pojo.User">
+        select * from demo_user where id = #{id}
+    </select>
+    <insert id="saveUser" parameterType="cn.tedu.mybatis.demo2.pojo.User">
+        insert into demo_user
+            (id, name, age, sex)
+        value
+            (default, #{name}, #{age}, #{sex})
+    </insert>
+    <update id="updateUser" parameterType="cn.tedu.mybatis.demo2.pojo.User">
+        update demo_user
+        set name = #{name}, age = #{age}, sex = #{sex}
+        where id = #{id}
+    </update>
+    <delete id="deleteUser" parameterType="cn.tedu.mybatis.demo2.pojo.User">
+        delete from demo_user
+        where name = #{name}
+    </delete>
+
+    <select id="findByAge" resultType="cn.tedu.mybatis.demo2.pojo.User">
+        <![CDATA[
+            select * from demo_user
+            where age >= #{minAge} and age <= #{maxAge}
+            order by age desc
+        ]]>
+    </select>
+    <select id="findParam" resultType="cn.tedu.mybatis.demo2.pojo.User">
+        select * from demo_user
+        where age between #{minAge} and #{maxAge}
+        order by age desc
+    </select>
+    <select id="findByLike" resultType="cn.tedu.mybatis.demo2.pojo.User">
+        select * from demo_user
+        where name like "%"#{name}"%"
     </select>
 </mapper>
