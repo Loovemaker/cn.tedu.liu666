@@ -5,5 +5,11 @@
 
 <!--namespace是mybaits映射文件的唯一标识,与接口对应-->
 <mapper namespace="cn.tedu.mybatis.demo2.mapper.UserMapper2">
+    <select id="listAllUsers" resultType="User2">
+        select <include refid="userFields"/> from demo_user
+    </select>
 
+    <sql id="userFields">
+        id, name, sex, age
+    </sql>
 </mapper>

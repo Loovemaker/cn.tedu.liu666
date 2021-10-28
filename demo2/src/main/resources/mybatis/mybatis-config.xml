@@ -5,6 +5,11 @@
 <!--核心配置文件-->
 <configuration>
 
+    <typeAliases>
+        <typeAlias alias="UserMapper2" type="cn.tedu.mybatis.demo2.mapper.UserMapper2" />
+        <package name="cn.tedu.mybatis.demo2.pojo"/>
+    </typeAliases>
+
     <!--环境配置标签-->
     <environments default="development">
 
@@ -25,4 +30,5 @@
         <mapper resource="mybatis/mappers/UserMapper.xml"/>
         <mapper resource="mybatis/mappers/UserMapper2.xml"/>
     </mappers>
+
 </configuration>
