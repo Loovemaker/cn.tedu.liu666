@@ -8,6 +8,49 @@
     <select id="listAllUsers" resultType="User2">
         select <include refid="userFields"/> from demo_user
     </select>
+    <select id="findIn" resultType="User2">
+        select <include refid="userFields"/> from demo_user
+            where id in
+                <foreach collection="array" open="(" close=")" separator=", " item="id">
+                    #{id}
+                </foreach>
+    </select>
+    <select id="findInList" resultType="User2">
+        select <include refid="userFields"/> from demo_user
+            where id in
+                <foreach collection="list" open="(" close=")" separator=", " item="id">
+                    #{id}
+                </foreach>
+    </select>
+    <select id="findInMap" resultType="User2">
+        select <include refid="userFields"/> from demo_user
+            where id in (
+                <foreach collection="ids" item="id" separator=", ">
+                    #{id}
+                </foreach>
+            )
+                and sex = #{sex}
+    </select>
+
+    <select id="findSqlWhere" resultType="User2">
+        select <include refid="userFields"/> from demo_user
+            <where>
+                <if test="id != null">id = #{id}</if>
+                <if test="name != null">and name = #{name}</if>
+                <if test="age != null">and age = #{age}</if>
+                <if test="sex != null">and sex = #{sex}</if>
+            </where>
+    </select>
+    
+    <update id="sqlUpdate" parameterType="User2">
+        update demo_user
+            <set>
+                <if test="name != null">name = #{name}, </if>
+                <if test="age != null">age = #{age}, </if>
+                <if test="sex != null">sex = #{sex}, </if>
+            </set>
+            where id = #{id}
+    </update>
 
     <sql id="userFields">
         id, name, sex, age
