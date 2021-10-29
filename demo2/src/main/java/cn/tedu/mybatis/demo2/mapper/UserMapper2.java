@@ -19,4 +19,6 @@ public interface UserMapper2 {
     List<User2> findSqlWhere(User2 user2);
 
     Integer sqlUpdate(User2 user2);
+
+    List<User2> findChoose(User2 user2);
 }

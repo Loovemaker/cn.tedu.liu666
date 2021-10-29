@@ -52,6 +52,17 @@
             where id = #{id}
     </update>
 
+    <select id="findChoose" resultType="User2">
+        select <include refid="userFields"/> from demo_user
+            <where>
+                <choose>
+                    <when test="name != null">name = #{name}</when>
+                    <when test="age != null">age = #{age}</when>
+                    <when test="sex != null">sex = #{sex}</when>
+                </choose>
+            </where>
+    </select>
+
     <sql id="userFields">
         id, name, sex, age
     </sql>

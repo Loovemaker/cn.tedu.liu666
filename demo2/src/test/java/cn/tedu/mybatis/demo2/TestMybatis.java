@@ -81,12 +81,23 @@ public class TestMybatis {
     }
 
     @Test void sqlUpdateTest() {
-        final User2 守山使者 = new User2(4, "守山使者", 5000, null);
+        final User2 守山使者 = new User2(4, "守山使者", random.nextInt() >>> 1, null);
 
         try (final SqlSession sqlSession = getSession(resourcePath)) {
             System.out.printf("%d rows affected", sqlSession
                     .getMapper(UserMapper2.class)
                     .sqlUpdate(守山使者));
+        }
+    }
+
+    @Test void findChooseTest() {
+        final User2 user2 = new User2(null, null, 500, null);
+
+        try (final SqlSession sqlSession = getSession(resourcePath)) {
+            sqlSession
+                    .getMapper(UserMapper2.class)
+                    .findChoose(user2)
+                    .forEach(System.out::println);
         }
     }
 }
