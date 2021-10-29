@@ -29,6 +29,8 @@
     <mappers>
         <mapper resource="mybatis/mappers/UserMapper.xml"/>
         <mapper resource="mybatis/mappers/UserMapper2.xml"/>
+        <mapper resource="mybatis/mappers/DogMapper.xml"/>
+        
     </mappers>
 
 </configuration>
