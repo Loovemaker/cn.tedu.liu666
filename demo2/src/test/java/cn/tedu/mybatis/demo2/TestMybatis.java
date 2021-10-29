@@ -28,7 +28,7 @@ public class TestMybatis {
         }
     }
 
-    // TODO: Find out WHY ALIAS functionalitiy in the fuxxin xml cunt FULLY work wotule
+    // TODO: Find out WHY ALIAS functionality in the fuxxin xml cunt FULLY work wotule
     @Test void findUser() {
         try (final SqlSession sqlSession = getSession(resourcePath)) {
             sqlSession
