@@ -30,7 +30,7 @@
         <mapper resource="mybatis/mappers/UserMapper.xml"/>
         <mapper resource="mybatis/mappers/UserMapper2.xml"/>
         <mapper resource="mybatis/mappers/DogMapper.xml"/>
-        
+        <mapper class="cn.tedu.mybatis.demo2.mapper.UserAnnoMapper"/>
     </mappers>
 
 </configuration>

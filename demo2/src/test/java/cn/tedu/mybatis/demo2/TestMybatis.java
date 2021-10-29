@@ -84,7 +84,7 @@ public class TestMybatis {
         final User2 守山使者 = new User2(4, "守山使者", random.nextInt() >>> 1, null);
 
         try (final SqlSession sqlSession = getSession(resourcePath)) {
-            System.out.printf("%d rows affected", sqlSession
+            System.out.printf("%d rows affected\n", sqlSession
                     .getMapper(UserMapper2.class)
                     .sqlUpdate(守山使者));
         }

@@ -26,7 +26,6 @@ class DogMapperTest {
         }
     }
 
-
     @Test
     void findAll() {
         try (final SqlSession session = getSession(resourcePath)) {
