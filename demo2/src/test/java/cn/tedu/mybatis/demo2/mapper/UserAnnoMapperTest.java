@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UserAnnoMapperTest {
 
     String resourcePath = "mybatis/mybatis-config.xml";
@@ -49,7 +47,12 @@ class UserAnnoMapperTest {
         try (final SqlSession session = getSession(resourcePath)) {
             System.out.printf("%d rows affected\n", session.getMapper(UserAnnoMapper.class)
                     .saveUser(
-                            new User(null, "注解测试", 18, randomGender())
+                            new User(
+                                    null,
+                                    "注解测试",
+                                    random.nextInt() >>> 1,
+                                    randomGender()
+                            )
                     ));
         }
     }
