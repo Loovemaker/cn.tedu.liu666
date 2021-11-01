@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace是mybaits映射文件的唯一标识,与接口对应-->
+<mapper namespace="cn.tedu.jt.spring.demo3.mapper.EmpMapper">
+    <select id="findAll" resultMap="empRM">
+        select
+            e.emp_id,
+            e.emp_name,
+            d.dept_id,
+            d.dept_name
+        from emp e, dept d
+        where e.dept_id = d.dept_id
+    </select>
+
+    <resultMap id="empRM" type="Emp">
+        <id property="empId" column="emp_id" />
+        <result property="empName" column="emp_name" />
+        <association property="dept" javaType="Dept">
+            <id property="deptId" column="dept_id"/>
+            <result property="deptName" column="dept_name"/>
+        </association>
+    </resultMap>
+
+</mapper>

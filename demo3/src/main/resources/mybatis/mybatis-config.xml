@@ -6,7 +6,8 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="UserMapper" type="cn.tedu.jt.spring.demo3.mapper.UserMapper" />
+        <typeAlias alias="EmpMapper" type="cn.tedu.jt.spring.demo3.mapper.EmpMapper" />
+        <typeAlias alias="DeptMapper" type="cn.tedu.jt.spring.demo3.mapper.DeptMapper" />
         <package name="cn.tedu.jt.spring.demo3.pojo"/>
     </typeAliases>
 
@@ -27,7 +28,8 @@
 
     <!--Mybatis加载Mapper映射文件-->
     <mappers>
-        <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/DeptMapper.xml" />
+        <mapper resource="mybatis/mappers/EmpMapper.xml" />
     </mappers>
 
 </configuration>

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 
 @Data
@@ -14,8 +16,18 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Emp implements Serializable {
+
     private Integer empId;
     private String empName;
 
     private Dept dept;
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Emp.class.getSimpleName() + "[", "]")
+                .add("Name: " + empName)
+                .add("Dept: " + (Objects.nonNull(dept) ? dept.getDeptName() : null))
+                .toString();
+    }
+
 }
