@@ -5,6 +5,8 @@
 
 <!--namespace是mybaits映射文件的唯一标识,与接口对应-->
 <mapper namespace="cn.tedu.jt.spring.demo3.mapper.EmpMapper">
+    <cache />
+
     <select id="findAll" resultMap="empRM">
         select
             e.emp_id,
@@ -15,6 +17,14 @@
         where e.dept_id = d.dept_id
     </select>
 
+    <select id="findAllSelect" resultMap="empRM2">
+        select * from emp
+    </select>
+
+    <select id="selectDept" resultMap="deptRM">
+        select * from dept where dept_id = #{dept_id}
+    </select>
+
     <resultMap id="empRM" type="Emp">
         <id property="empId" column="emp_id" />
         <result property="empName" column="emp_name" />
@@ -23,5 +33,13 @@
             <result property="deptName" column="dept_name"/>
         </association>
     </resultMap>
-
+    <resultMap id="empRM2" type="Emp">
+        <id property="empId" column="emp_id"/>
+        <result property="empName" column="emp_name"/>
+        <association property="dept" javaType="Dept" select="selectDept" column="dept_id"/>
+    </resultMap>
+    <resultMap id="deptRM" type="Dept">
+        <id property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+    </resultMap>
 </mapper>
