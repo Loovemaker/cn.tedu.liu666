@@ -6,4 +6,5 @@ import java.util.Set;
 
 public interface EmpMapper {
     Set<Emp> findAll();
+    Set<Emp> findAllSelect();
 }
