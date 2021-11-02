@@ -7,9 +7,18 @@
 <mapper namespace="cn.tedu.jt.ssm.mapper.UserMapper">
     <cache />
 
-    <select id="findAll" resultType="User">
+    <select id="findAll" resultType="cn.tedu.jt.ssm.pojo.User">
         select * from demo_user
     </select>
 
+    <select id="findUserByIds" resultType="cn.tedu.jt.ssm.pojo.User">
+        select * from demo_user
+        where id in (
+            <foreach collection="array" separator=", " item="id">
+                #{id}
+            </foreach>
+        )
+        order by id
+    </select>
 
 </mapper>

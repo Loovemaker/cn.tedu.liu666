@@ -4,13 +4,15 @@ spring:
     name: ssm
   datasource: # 数据库
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/jt?serverTimezone=GMT%2B8&amp;useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;allowMultiQueries=true"
+    url: "jdbc:mysql://localhost:3306/jt?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true"
     username: root
     password: adgjl[]\khfs/.,
 
 # 应用服务 WEB 访问端口
 server:
   port: 8090
+  servlet:
+    context-path: /
 
 mybatis:
   type-aliases-package: cn.tedu.jt.ssm.pojo
