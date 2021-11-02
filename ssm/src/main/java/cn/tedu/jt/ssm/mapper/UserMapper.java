@@ -9,5 +9,4 @@ import java.util.Set;
 @Mapper
 public interface UserMapper {
     Set<User> findAll();
-
 }
