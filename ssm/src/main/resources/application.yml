@@ -11,6 +11,8 @@ spring:
 # 应用服务 WEB 访问端口
 server:
   port: 8090
+  servlet:
+    context-path: /
 
 mybatis:
   type-aliases-package: cn.tedu.jt.ssm.pojo
