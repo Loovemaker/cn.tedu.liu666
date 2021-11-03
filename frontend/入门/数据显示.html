@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-clock属性</title>
+		
+		<style>
+			/* 定义属性样式 */
+			[v-cloak]{
+				/*将元素进行隐藏  */
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		这个指令保持在元素上直到关联实例结束编译。编译成功之后属性消失
+		<div id="app" v-cloak>
+			<h1>v-clock属性</h1>
+			<h3>{{ hello }}</h3>
+			
+			<!-- v-text指令 没有闪动效果 -->
+			<h3 v-text="text"></h3>
+			
+			<!-- v-html指令 直接显示html效果 容易被攻击 本网站内可以使用
+				第三方数据来源不要使用
+			-->
+			<p v-html="html"></p>
+			
+			<!-- v-pre 跳过编译效果,显示原始mustache标签 -->
+			<h3 v-pre>{{hello}}</h3>
+			
+			<!-- v-once用法 元素和组件 只渲染一次 -->	
+			<h3 v-once>{{once}}</h3>
+			
+			<!-- v-model 双向数据绑定  -->
+			双向数据绑定:<input name="name" type="text" v-model="name" />
+		</div>
+		
+		
+		<!-- 引入js -->
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			const app = new Vue({
+				//element 元素
+				el: "#app",
+				data: {
+					hello: "helloVue",
+					text: "数据绑定text",
+					html: "<h1>html测试数据</h1>",
+					once: "检查渲染次数",
+					name: "双向数据绑定"
+				}
+			})
+		</script>
+	</body>
+</html>

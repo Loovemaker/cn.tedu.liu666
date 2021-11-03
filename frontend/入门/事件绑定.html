@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件绑定</title>
+		
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				{{num}}
+				<button v-on:click="num++">增加1</button>
+				<button @click="num++">增加1</button>
+				<button @click="addNum">增加1</button>
+				<button @click="addNum2(100)">带参数测试</button>
+				<!-- 如果没有参数,则默认传递event对象
+						 如果有参数,则使用$event 传递event对象
+				 -->
+				<button @click="addNum2($event)">传递event对象</button>
+			</div>
+			
+			<div @click="addNum4">
+				{{num}}
+				<button @click.stop="addNum3">增加</button>
+			</div>
+			
+			<div>
+				阻止a标签跳转
+				<a href="http://www.baidu.com" @click.prevent="btnA">百度</a>
+			</div>
+			
+			<hr />
+			<div>
+				<input name="username" type="text" @keyup.enter="handler" value="回车触发"/>
+				<input name="username" type="text" @keyup.space="handler" value="空格触发"/>
+				<input name="username" type="text" @keyup.delete="handler" value="删除键触发"/>
+				<input name="username" type="text" @keyup.left="handler" value="<-触发"/>
+				<input name="username" type="text" @keyup.right="handler" value="->键触发"/>
+			</div>
+			
+			
+		</div>
+		<!-- 引入js -->
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			const app = new Vue({
+				el: "#app",
+				data: {
+					num: 0
+				},
+				methods:{
+					addNum(){
+						this.num++ 
+					},
+					//如果用户没有传递参数,则默认传递当前event对象
+					addNum2(num){
+						//console.log(num.target.innerHTML)
+						this.num = this.num + num
+					},
+					addNum3(){
+						this.num ++
+					},
+					addNum4(){
+						this.num ++
+					},
+					btnA(){
+						console.log("点击事件执行")
+					},
+					handler(){
+						console.log("触发效果")
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

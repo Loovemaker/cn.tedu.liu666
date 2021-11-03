@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>循环结构数据</title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<!-- 插值表达式如果渲染不完全会展现{{}} -->
+			<span v-for="item in hobby">{{item}}</span>
+			<!-- 使用v-text优化属性 -->
+			<span v-for="item in hobby" v-text="item"></span>
+			<!-- 展现数组下标 -->
+			<span v-for="(item,index) in hobby" v-text="index"></span>
+			
+			<!-- 循环遍历数组对象 :key用来区分遍历的节点信息 -->
+			<div v-for="item in users" :key="item.id">
+					<span v-text="item.id"></span>
+					<span v-text="item.name"></span>
+			</div>
+			
+			<!-- 遍历对象 获取对象的key-value-index索引 -->
+			<div v-for="(key,value,index) in user">
+				<span v-text="key"></span>
+				<span v-text="value"></span>
+				<span v-text="index"></span>
+			</div>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el : "#app",
+				data : {
+					hobby: ['吃','喝','玩','乐'],
+					users: [{
+						id: 100,
+						name: '王昭君'
+					},{
+						id: 101,
+						name: '安琪拉'
+					}],
+					user: {
+						id: 1,
+						name: '张三',
+						age: 18
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
