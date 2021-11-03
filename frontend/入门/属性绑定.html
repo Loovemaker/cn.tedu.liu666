@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>属性绑定</title>
+		<style>
+			.red{
+				background-color: red;
+				height: 100px;
+				width: 100px;
+			}
+			
+			.fontSize{
+				font-size: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+				<div>
+					属性绑定
+					<a v-bind:href="url">百度</a>
+					<a :href="url2">京东</a>
+				</div>
+				<div>
+					样式绑定对象写法
+					<div v-bind:class="{red: isActive}">样式测试</div>
+					<button @click="isActive = !isActive">切换</button>
+				</div>
+				<div>
+					样式数组写法
+					<div v-bind:class="[redClass,fontSize]">属性样式测试</div>
+					<button @click="changeCss">切换</button>
+				</div>
+				
+				<hr >
+				<div>
+					style 样式绑定
+					<div v-bind:style="{border: borderStyle,width: widthStyle,height: heightStyle}">123</div>
+					<div v-bind:style="myStyle">456</div>
+				</div>
+	
+				
+		</div>	
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			 const app = new Vue({
+				 el: "#app",
+				 data: {
+					 url: "http://www.baidu.com",
+					 url2: "http://www.jd.com",
+					 isActive: true,
+					 redClass: "red",
+					 fontSize:	"fontSize",
+					 borderStyle: "1px solid blue",
+					 widthStyle: "100px",
+					 heightStyle: "100px",
+					 myStyle : {
+						 border: '2px solid green',
+						 width: "20px",
+						 height: "20px"
+					 }
+				 },
+				 methods: {
+					 changeCss(){
+						 this.redClass = ''
+						 this.fontSize = ''
+					 }
+				 }
+			 })
+		</script>
+	</body>
+</html>

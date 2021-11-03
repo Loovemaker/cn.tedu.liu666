@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>远程调用</title>
+    </head>
+    <body>
+        <button onclick="click()">click</button>
+    </body>
+    <script src="../js/axios.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        let user = { age: "2000", sex: "男" }
+        axios.get(
+            "http://localhost:8090/user/find/byas", 
+            { params: user },
+        )
+        .then(promise => {
+            console.log(promise)
+            console.log(promise.data)
+        })
+        let user2 = {id: 1}
+        axios.get(`http://localhost:8090/user/find/byid/${user2.id}`)
+            .then(promise => {
+                console.log(promise)
+                console.log(promise.data)
+            })
+    </script>
+</html>
