@@ -12,16 +12,17 @@
         function getRandomInt(max) {
           return Math.floor(Math.random() * max);
         }
-        function saveUser() {
-            let url1 = "http://localhost:8090/axios/saveuser"
+        
+        async function saveUser() {
             let user1 = {
                 name: "zhangsan", 
                 age: getRandomInt(1000000000), 
                 sex: "LGBT",
             }
-            axios
-                .post(url1, user1)
-                .then(promise => { console.log(promise.data) })
+            let url1 = "axios/saveuser"
+            axios.defaults.baseURL = "http://localhost:8090/"
+            console.log((await axios.post(url1, user1)).data)
+                
         }
     </script>
 </html>
