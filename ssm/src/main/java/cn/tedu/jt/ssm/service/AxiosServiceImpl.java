@@ -20,4 +20,14 @@ public class AxiosServiceImpl implements AxiosService {
     public List<User> findUserList() {
         return mapper.findUserList();
     }
+
+    @Override
+    public Integer updateUser(User user) {
+        return mapper.updateUser(user);
+    }
+
+    @Override
+    public Integer deleteUser(User user) {
+        return mapper.deleteUser(user);
+    }
 }

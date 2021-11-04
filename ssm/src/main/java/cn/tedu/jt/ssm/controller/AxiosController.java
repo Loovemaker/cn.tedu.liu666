@@ -2,6 +2,7 @@ package cn.tedu.jt.ssm.controller;
 
 import cn.tedu.jt.ssm.pojo.User;
 import cn.tedu.jt.ssm.service.AxiosService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +23,15 @@ public class AxiosController {
     @GetMapping("find-user-list")
     public List<User> findUserList() {
         return service.findUserList();
+    }
+
+    @PutMapping("update-user")
+    public Integer updateUser(@RequestBody User user) {
+        return service.updateUser(user);
+    }
+
+    @DeleteMapping("delete-user")
+    public Integer deleteUser(@RequestBody User user) {
+        return service.deleteUser(user);
     }
 }

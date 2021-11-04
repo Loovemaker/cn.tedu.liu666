@@ -8,4 +8,8 @@ public interface AxiosService {
     Boolean saveUser(User user);
 
     List<User> findUserList();
+
+    Integer updateUser(User user);
+
+    Integer deleteUser(User user);
 }
