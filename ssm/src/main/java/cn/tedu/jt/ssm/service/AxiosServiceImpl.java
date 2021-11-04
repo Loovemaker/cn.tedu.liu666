@@ -5,7 +5,7 @@ import cn.tedu.jt.ssm.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class AxiosServiceImpl implements AxiosService {
@@ -17,7 +17,7 @@ public class AxiosServiceImpl implements AxiosService {
     }
 
     @Override
-    public Set<User> findUserList() {
+    public List<User> findUserList() {
         return mapper.findUserList();
     }
 }

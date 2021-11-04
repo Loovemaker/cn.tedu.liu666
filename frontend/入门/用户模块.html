@@ -9,17 +9,17 @@
 			<div align="center">
 				<h3 align="center">用户新增</h3><br>
 				<p>
-					用户名称: <input type="text" name="name"/>
-					用户年龄: <input type="text" name="age" />
-					用户性别: <input type="text" name="sex" />
-					<button>新增</button>
+					用户名称: <input type="text" name="name" v-model="addUserData.name"/>
+					用户年龄: <input type="number" name="age" v-model="addUserData.age"/>
+					用户性别: <input type="text" name="sex" v-model="addUserData.sex"/>
+					<button @click="addUser">新增</button>
 				</p>
 			</div>
 			<hr />
 			<div align="center">
 				<h3 align="center">用户修改操作</h3><br>
 				<p>
-						用户ID号: <input type="text" name="id"      disabled/>
+						用户ID号: <input type="text" name="id" disabled/>
 						用户名称: <input type="text" name="name" />
 						用户年龄: <input type="text" name="age"  />
 						用户性别: <input type="text" name="sex"  />
@@ -35,11 +35,11 @@
 					<td>性别</td>
 					<td>操作</td>
 				</tr>
-				<tr align="center">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+				<tr align="center" v-for="(user,index) in allUsers">
+                    <td v-text=user.id></td>
+					<td v-text=user.name></td>
+					<td v-text=user.age></td>
+					<td v-text=user.sex></td>
 					<td>
 						<button>修改</button>
 						<button>删除</button>
@@ -53,19 +53,41 @@
 		<script src="../js/vue.js"></script>
 		<script>
             axios.defaults.baseURL = "http://localhost:8090/axios"
+            const defaults = {
+                addUser() {
+                    return {
+                        name: "",
+                        age: 0,
+                        sex: "",
+                    }
+                }
+            }
         
             const app = new Vue({
                 el: "#app",
                 data: {
-                    hello: "Hello, world!"
+                    hello: "Hello, world!",
+                    allUsers: [],
+                    addUserData: defaults.addUser(),
                 }, 
                 methods: {
                     async findUserList() {
                         let {data: result} = await axios.get("find-user-list")
-                        console.log(result)
+                        this.allUsers = result
+                    }, 
+                    async addUser() {
+                        let {data: data, status: status} = 
+                            await axios.post("add-user", this.addUserData)
+                            
+                        if (status == 200) {
+                            this.addUserData = defaults.addUser()
+                            this.findUserList()
+                        } else {
+                            alert(status)
+                        }
                     }
                 },
-                mounted() {
+                async mounted() {
                     this.findUserList()
                 }
             })
