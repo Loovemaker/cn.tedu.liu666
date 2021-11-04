@@ -12,7 +12,8 @@
         function getRandomInt(max) {
           return Math.floor(Math.random() * max);
         }
-        function saveUser() {
+        
+        async function saveUser() {
             let user1 = {
                 name: "zhangsan", 
                 age: getRandomInt(1000000000), 
@@ -20,15 +21,8 @@
             }
             let url1 = "axios/saveuser"
             axios.defaults.baseURL = "http://localhost:8090/"
-            axios
-                .post(url1, user1)
-                .then(promise => {
-                    if (promise.status === 200) {
-                        alert(promise.data)
-                    } else {
-                        alert(promise.data)
-                    }
-                })
+            console.log((await axios.post(url1, user1)).data)
+                
         }
     </script>
 </html>
