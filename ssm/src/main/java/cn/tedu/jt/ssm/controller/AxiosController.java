@@ -31,7 +31,7 @@ public class AxiosController {
     }
 
     @DeleteMapping("delete-user")
-    public Integer deleteUser(Integer id) {
+    public Integer deleteUser(@RequestParam Integer id) {
         return service.deleteUser(id);
     }
 }

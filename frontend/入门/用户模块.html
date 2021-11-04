@@ -114,6 +114,7 @@
                             })
                             
                         if (status == 200) {
+                            this.isUpdating = false
                             this.findUserList()
                         } else {
                             alert(status)
