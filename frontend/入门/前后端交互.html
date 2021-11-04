@@ -9,12 +9,16 @@
     </body>
     <script src="../js/axios.js" type="text/javascript" charset="utf-8"></script>
     <script>
-        function fuck() {
-            console.log("hello")
+        function getRandomInt(max) {
+          return Math.floor(Math.random() * max);
         }
         function saveUser() {
             let url1 = "http://localhost:8090/axios/saveuser"
-            let user1 = {name: "zhangsan", age: 18, sex: "LGBT"}
+            let user1 = {
+                name: "zhangsan", 
+                age: getRandomInt(1000000000), 
+                sex: "LGBT",
+            }
             axios
                 .post(url1, user1)
                 .then(promise => { console.log(promise.data) })
