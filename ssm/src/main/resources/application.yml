@@ -19,3 +19,7 @@ mybatis:
   mapper-locations: classpath:/mybatis/mappers/*.xml  # 包扫描
   configuration:
     map-underscore-to-camel-case: true
+
+logging:
+  level:
+    cn.tedu.jt.ssm.mapper: debug
