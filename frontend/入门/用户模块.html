@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表展现案例</title>
+	</head>
+	<body>
+		<div id="app">
+			<div align="center">
+				<h3 align="center">用户新增</h3><br>
+				<p>
+					用户名称: <input type="text" name="name" v-model="addUserData.name"/>
+					用户年龄: <input type="number" name="age" v-model="addUserData.age"/>
+					用户性别: <input type="text" name="sex" v-model="addUserData.sex"/>
+					<button @click="addUser">新增</button>
+				</p>
+			</div>
+			<hr />
+			<div align="center" v-if="isUpdating">
+				<h3 align="center">用户修改操作</h3><br>
+				<p>
+						用户ID号: <input type="text" name="id" disabled v-model="updateUserData.id"/>
+						用户名称: <input type="text" name="name" v-model="updateUserData.name"/>
+						用户年龄: <input type="text" name="age" v-model="updateUserData.age"/>
+						用户性别: <input type="text" name="sex" v-model="updateUserData.sex"/>
+						<button @click="updateUserComplete">完成修改</button>
+				</p>
+			</div>
+			<h1 align="center">用户列表展现案例</h1>
+			<table align="center" border="1px" width="80%">
+				<tr align="center">
+					<td>ID编号</td>
+					<td>姓名</td>
+					<td>年龄</td>
+					<td>性别</td>
+					<td>操作</td>
+				</tr>
+				<tr align="center" v-for="(user,index) in allUsers">
+                    <td v-text=user.id></td>
+					<td v-text=user.name></td>
+					<td v-text=user.age></td>
+					<td v-text=user.sex></td>
+					<td>
+						<button @click="updateUser(user)">修改</button>
+						<button @click="deleteUser(user.id)">删除</button>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<script src="../js/axios.js"></script>
+		<script src="../js/vue.js"></script>
+		<script>
+            axios.defaults.baseURL = "http://localhost:8090/axios"
+            const defaults = {
+                User() {
+                    return {
+                        id: 0,
+                        name: "",
+                        age: 0,
+                        sex: "",
+                    }
+                }
+            }
+        
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    hello: "Hello, world!",
+                    allUsers: [],
+                    addUserData: defaults.User(),
+                    updateUserData: defaults.User(),
+                    isUpdating: false,
+                }, 
+                methods: {
+                    async findUserList() {
+                        let {data: result} = await axios.get("find-user-list")
+                        this.allUsers = result
+                    }, 
+                    async addUser() {
+                        let {data: data, status: status} = 
+                            await axios.post("add-user", this.addUserData)
+                            
+                        if (status == 200) {
+                            this.addUserData = defaults.User()
+                            this.findUserList()
+                        } else {
+                            alert(status)
+                        }
+                    },
+                    async updateUser(user) {
+                        this.updateUserData = user
+                        this.isUpdating = true
+                    }, 
+                    async updateUserComplete() {
+                        let {data: data, status: status} =
+                            await axios.put("update-user", this.updateUserData)
+                            
+                        if (status == 200) {
+                            this.isUpdating = false
+                            this.updateUserData = defaults.User()
+                            this.findUserList()
+                        } else {
+                            alert(status)
+                        }
+                    }, 
+                    async deleteUser(id) {
+                        let {data: data, status: status} = 
+                            await axios.delete("delete-user", {
+                                params: {
+                                    id: id
+                                }
+                            })
+                            
+                        if (status == 200) {
+                            this.isUpdating = false
+                            this.findUserList()
+                        } else {
+                            alert(status)
+                        }
+                    }
+                },
+                async mounted() {
+                    this.findUserList()
+                }
+            })
+		</script>
+	</body>
+</html>
