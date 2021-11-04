@@ -5,6 +5,8 @@ import cn.tedu.jt.ssm.service.AxiosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @CrossOrigin
 @RequestMapping("axios")
@@ -15,5 +17,10 @@ public class AxiosController {
     @PostMapping("saveuser")
     public String saveUser(@RequestBody User user) {
         return "" + (service.saveUser(user) ? "" : "not ") + "affected";
+    }
+
+    @GetMapping("find-user-list")
+    public Set<User> findUserList() {
+        return service.findUserList();
     }
 }

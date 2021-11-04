@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表展现案例</title>
+	</head>
+	<body>
+		<div id="app">
+			<div align="center">
+				<h3 align="center">用户新增</h3><br>
+				<p>
+					用户名称: <input type="text" name="name"/>
+					用户年龄: <input type="text" name="age" />
+					用户性别: <input type="text" name="sex" />
+					<button>新增</button>
+				</p>
+			</div>
+			<hr />
+			<div align="center">
+				<h3 align="center">用户修改操作</h3><br>
+				<p>
+						用户ID号: <input type="text" name="id"      disabled/>
+						用户名称: <input type="text" name="name" />
+						用户年龄: <input type="text" name="age"  />
+						用户性别: <input type="text" name="sex"  />
+						<button>修改</button>
+				</p>
+			</div>
+			<h1 align="center">用户列表展现案例</h1>
+			<table align="center" border="1px" width="80%">
+				<tr align="center">
+					<td>ID编号</td>
+					<td>姓名</td>
+					<td>年龄</td>
+					<td>性别</td>
+					<td>操作</td>
+				</tr>
+				<tr align="center">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+						<button>修改</button>
+						<button>删除</button>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<script src="../js/axios.js"></script>
+		<script src="../js/vue.js"></script>
+		<script>
+            axios.defaults.baseURL = "http://localhost:8090/axios"
+        
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    hello: "Hello, world!"
+                }, 
+                methods: {
+                    async findUserList() {
+                        let {data: result} = await axios.get("find-user-list")
+                        console.log(result)
+                    }
+                },
+                mounted() {
+                    this.findUserList()
+                }
+            })
+		</script>
+	</body>
+</html>
