@@ -11,5 +11,5 @@ public interface AxiosService {
 
     Integer updateUser(User user);
 
-    Integer deleteUser(User user);
+    Integer deleteUser(Integer id);
 }

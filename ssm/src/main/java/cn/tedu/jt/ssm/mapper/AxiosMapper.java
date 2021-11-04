@@ -20,5 +20,5 @@ public interface AxiosMapper {
     Integer updateUser(User user);
 
     @Delete("delete from demo_user where id = #{id}")
-    Integer deleteUser(User user);
+    Integer deleteUser(Integer id);
 }
