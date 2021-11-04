@@ -16,14 +16,14 @@
 				</p>
 			</div>
 			<hr />
-			<div align="center">
+			<div align="center" v-if="isUpdating">
 				<h3 align="center">用户修改操作</h3><br>
 				<p>
-						用户ID号: <input type="text" name="id" disabled/>
-						用户名称: <input type="text" name="name" />
-						用户年龄: <input type="text" name="age"  />
-						用户性别: <input type="text" name="sex"  />
-						<button>修改</button>
+						用户ID号: <input type="text" name="id" disabled v-model="updateUserData.id"/>
+						用户名称: <input type="text" name="name" v-model="updateUserData.name"/>
+						用户年龄: <input type="text" name="age" v-model="updateUserData.age"/>
+						用户性别: <input type="text" name="sex" v-model="updateUserData.sex"/>
+						<button @click="updateUserComplete">完成修改</button>
 				</p>
 			</div>
 			<h1 align="center">用户列表展现案例</h1>
@@ -41,8 +41,8 @@
 					<td v-text=user.age></td>
 					<td v-text=user.sex></td>
 					<td>
-						<button>修改</button>
-						<button>删除</button>
+						<button @click="updateUser(user)">修改</button>
+						<button @click="deleteUser(user)">删除</button>
 					</td>
 				</tr>
 				
@@ -54,8 +54,9 @@
 		<script>
             axios.defaults.baseURL = "http://localhost:8090/axios"
             const defaults = {
-                addUser() {
+                User() {
                     return {
+                        id: 0,
                         name: "",
                         age: 0,
                         sex: "",
@@ -68,7 +69,9 @@
                 data: {
                     hello: "Hello, world!",
                     allUsers: [],
-                    addUserData: defaults.addUser(),
+                    addUserData: defaults.User(),
+                    updateUserData: defaults.User(),
+                    isUpdating: false,
                 }, 
                 methods: {
                     async findUserList() {
@@ -80,7 +83,33 @@
                             await axios.post("add-user", this.addUserData)
                             
                         if (status == 200) {
-                            this.addUserData = defaults.addUser()
+                            this.addUserData = defaults.User()
+                            this.findUserList()
+                        } else {
+                            alert(status)
+                        }
+                    },
+                    async updateUser(user) {
+                        this.updateUserData = user
+                        this.isUpdating = true
+                    }, 
+                    async updateUserComplete() {
+                        let {data: data, status: status} =
+                            await axios.put("update-user", this.updateUserData)
+                            
+                        if (status == 200) {
+                            this.isUpdating = false
+                            this.updateUserData = defaults.User()
+                            this.findUserList()
+                        } else {
+                            alert(status)
+                        }
+                    }, 
+                    async deleteUser(user) {
+                        let {data: data, status: status} = 
+                            await axios.delete("delete-user", user)
+                            
+                        if (status == 200) {
                             this.findUserList()
                         } else {
                             alert(status)
