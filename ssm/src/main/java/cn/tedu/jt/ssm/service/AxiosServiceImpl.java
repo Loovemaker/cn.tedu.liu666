@@ -27,7 +27,7 @@ public class AxiosServiceImpl implements AxiosService {
     }
 
     @Override
-    public Integer deleteUser(User user) {
-        return mapper.deleteUser(user);
+    public Integer deleteUser(Integer id) {
+        return mapper.deleteUser(id);
     }
 }
