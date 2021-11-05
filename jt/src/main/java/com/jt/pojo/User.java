@@ -15,5 +15,5 @@ public class User extends BasePojo{
     private String password;
     private String phone;
     private String email;
-    private Boolean status;
+    private Boolean status;     // isEnabled
 }
