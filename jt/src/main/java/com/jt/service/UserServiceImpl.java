@@ -9,6 +9,7 @@ import org.springframework.util.DigestUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -47,6 +48,8 @@ public class UserServiceImpl implements UserService{
 
         // 判断
         if(!Objects.nonNull(userDB)) return null;
-        // TODO: generate token
+
+        final UUID uuid = UUID.randomUUID();
+        return uuid.toString().replace("-", "");
     }
 }
