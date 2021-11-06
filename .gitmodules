@@ -1,3 +1,7 @@
-[submodule "老师的仓库"]
-	path = 老师的仓库
-	url = https://gitee.com/liulaoshi666/cgb2108
+[submodule "external/老师的仓库"]
+	path = external/老师的仓库
+	url = git@gitee.com:liulaoshi666/cgb2108.git
+[submodule "external/cn.tedu.homework.xiong"]
+	path = external/cn.tedu.homework.xiong
+	url = git@github.com:/Loovemaker/cn.tedu.homework.xiong.git
+	branch = 十一月一日
