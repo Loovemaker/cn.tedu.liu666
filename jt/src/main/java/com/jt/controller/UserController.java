@@ -14,8 +14,7 @@ import java.util.Objects;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    @Autowired private UserService userService;
 
     @GetMapping("/findAll")
     public List<User> findAll(){
