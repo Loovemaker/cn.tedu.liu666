@@ -8,8 +8,9 @@ Vue.use(VueRouter)
 const routes = [
   {path: '/', redirect: '/login'},
   {path: '/login', component: Login},
-  {path: '/elementUI', component: ElementUI},
-  {path: '/home', component: Home},
+  {path: '/elementUI', component: ElementUI, children: [
+    {path: '/home', component: Home},
+  ]},
 ]
 
 //路由导航守卫!!!!!!!
@@ -23,7 +24,7 @@ router.beforeEach((to, from, next) => {
 
   let token = window.sessionStorage.getItem('token')
   if(!token) return next('/login')
-  
+
   return next()
 })
 
