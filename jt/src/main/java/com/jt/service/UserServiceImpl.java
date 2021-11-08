@@ -2,6 +2,7 @@ package com.jt.service;
 
 import com.jt.mapper.UserMapper;
 import com.jt.pojo.User;
+import com.jt.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -51,5 +52,19 @@ public class UserServiceImpl implements UserService{
 
         final UUID uuid = UUID.randomUUID();
         return uuid.toString().replace("-", "");
+    }
+
+    @Override
+    public PageResult getUserList(PageResult pageResult) {
+        Long total = userMapper.getTotal();
+
+        Integer
+                size = pageResult.getPageSize(),
+                beginPage = size * (pageResult.getPageNum() - 1);
+        List<User> rows = userMapper.findUserByPage(size, beginPage);
+
+        return pageResult
+                .setTotal(total)
+                .setRows(rows);
     }
 }

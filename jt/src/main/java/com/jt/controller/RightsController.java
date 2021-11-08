@@ -17,6 +17,7 @@ public class RightsController {
 
     /**
      * 查询一级二级菜单项
+     * <p>http method: get</p>
      * @return  含有菜单项数据的SysResult包
      */
     @GetMapping("/getRightsList")
