@@ -34,7 +34,7 @@
            <el-table-column prop="status" label="状态">
              <template slot-scope="scope">
                 <el-switch v-model="scope.row.status" @change="updateStatus(scope.row)"
-                  active-color="#13ce66" inactive-color="#ff4949">
+                  active-color="#13ce66" inactive-color="#c0c0c0">
                 </el-switch>
              </template>
            </el-table-column>
