@@ -3,6 +3,7 @@ package com.jt.service;
 import com.jt.mapper.UserMapper;
 import com.jt.pojo.User;
 import com.jt.vo.PageResult;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -73,6 +74,20 @@ public class UserServiceImpl implements UserService{
     public Boolean updateStatus(User user) {
         user.setUpdated(new Date());
         final Integer rows = userMapper.updateStatus(user);
+        return Objects.equals(rows, 1);
+    }
+
+    @Override
+    public Boolean addUser(User user) {
+        final Boolean defaultStatus = true;
+        final Date now = new Date();
+
+        user
+                .setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))
+                .setStatus(defaultStatus)
+                .setCreated(now).setUpdated(now);
+
+        final Integer rows = userMapper.addUser(user);
         return Objects.equals(rows, 1);
     }
 

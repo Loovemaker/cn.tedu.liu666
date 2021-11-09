@@ -60,4 +60,15 @@ public class UserController {
                 ? SysResult.success()
                 : SysResult.failed();
     }
+
+    /**
+     * 用户新增
+     * @return 应该为success
+     */
+    @PostMapping("addUser")
+    public SysResult addUser(@RequestBody User user) {
+        return userService.addUser(user)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
 }

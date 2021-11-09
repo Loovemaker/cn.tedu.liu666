@@ -1,10 +1,7 @@
 package com.jt.mapper;
 
 import com.jt.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 public interface UserMapper {
@@ -38,4 +35,10 @@ public interface UserMapper {
                 "updated = #{updated} " +
             "where id = #{id}")
     Integer updateStatus(User user);
+
+    @Insert("insert into user " +
+            "(username, password, phone, email, status, created, updated) " +
+            "values " +
+            "(#{username}, #{password}, #{phone}, #{email}, #{status}, #{created}, #{updated})")
+    Integer addUser(User user);
 }

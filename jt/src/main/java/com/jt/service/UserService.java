@@ -15,4 +15,6 @@ public interface UserService {
     PageResult getUserList(PageResult pageResult);
 
     Boolean updateStatus(User user);
+
+    Boolean addUser(User user);
 }
