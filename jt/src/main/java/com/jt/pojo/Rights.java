@@ -1,4 +1,5 @@
 package com.jt.pojo;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -10,6 +11,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
+@TableName("rights")
 public class Rights extends BasePojo{
     private Integer id;
     private String name;
