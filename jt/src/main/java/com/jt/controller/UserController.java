@@ -4,6 +4,7 @@ import com.jt.pojo.User;
 import com.jt.service.UserService;
 import com.jt.vo.PageResult;
 import com.jt.vo.SysResult;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,5 +47,55 @@ public class UserController {
     public SysResult getUserList(PageResult pageResult) {
         pageResult = userService.getUserList(pageResult);
         return SysResult.success(pageResult);
+    }
+
+    /**
+     * 用户状态修改
+     * <p>http method: put</p>
+     * @return  应该为success
+     */
+    @PutMapping("status/{id}/{status}")
+    public SysResult updateStatus(User user) {
+        return userService.updateStatus(user)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    /**
+     * 用户新增
+     * <p>http method: post</p>
+     * @return 应该为success
+     */
+    @PostMapping("addUser")
+    public SysResult addUser(@RequestBody User user) {
+        return userService.addUser(user)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    /**
+     *  根据ID查询用户信息
+     *  <p>用户修改</p>
+     */
+    @GetMapping("{id}")
+    public SysResult updateUsergetuserById(User user) {
+        return SysResult.success(userService.getuserById(user));
+    }
+
+    @PutMapping("updateUser")
+    public SysResult updateUser(@RequestBody User user) {
+        return userService.updateUser(user)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    /**
+     * 根据ID删除用户
+     */
+    @DeleteMapping("{id}")
+    public SysResult deleteUser(@PathVariable Integer id) {
+        return userService.deleteUser(id)
+                ? SysResult.success()
+                : SysResult.failed();
     }
 }

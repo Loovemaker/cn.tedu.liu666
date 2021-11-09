@@ -1,9 +1,7 @@
 package com.jt.mapper;
 
 import com.jt.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 public interface UserMapper {
@@ -31,4 +29,31 @@ public interface UserMapper {
             @Param("beginPage") Integer beginPage,
             @Param("query")     String  query
     );
+
+    @Update("update user set " +
+                "status = #{status}, " +
+                "updated = #{updated} " +
+            "where id = #{id}")
+    Integer updateStatus(User user);
+
+    @Insert("insert into user " +
+            "(username, password, phone, email, status, created, updated) " +
+            "values " +
+            "(#{username}, #{password}, #{phone}, #{email}, #{status}, #{created}, #{updated})")
+    Integer addUser(User user);
+
+    @Select("select * from user " +
+            "where id = #{id}")
+    User findUserById(User user);
+
+    @Update("update user set " +
+                "phone = #{phone}, " +
+                "email = #{email}, " +
+                "updated = #{updated} " +
+            "where id = #{id}")
+    Integer updateUser(User user);
+
+    @Delete("delete from user " +
+            "where id = #{id}")
+    Integer deleteUser(Integer id);
 }
