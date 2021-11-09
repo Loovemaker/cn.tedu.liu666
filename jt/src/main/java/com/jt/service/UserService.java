@@ -17,4 +17,8 @@ public interface UserService {
     Boolean updateStatus(User user);
 
     Boolean addUser(User user);
+
+    User getuserById(User user);
+
+    Boolean updateUser(User user);
 }

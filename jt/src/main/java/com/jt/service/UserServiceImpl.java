@@ -3,12 +3,10 @@ package com.jt.service;
 import com.jt.mapper.UserMapper;
 import com.jt.pojo.User;
 import com.jt.vo.PageResult;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +14,8 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
+
+    Date now() { return new Date(); }
 
     @Autowired
     private UserMapper userMapper;
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Boolean updateStatus(User user) {
-        user.setUpdated(new Date());
+        user.setUpdated(now());
         final Integer rows = userMapper.updateStatus(user);
         return Objects.equals(rows, 1);
     }
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public Boolean addUser(User user) {
         final Boolean defaultStatus = true;
-        final Date now = new Date();
+        final Date now = now();
 
         user
                 .setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))
@@ -89,6 +89,17 @@ public class UserServiceImpl implements UserService{
 
         final Integer rows = userMapper.addUser(user);
         return Objects.equals(rows, 1);
+    }
+
+    @Override
+    public User getuserById(User user) {
+        return userMapper.findUserById(user);
+    }
+
+    @Override
+    public Boolean updateUser(User user) {
+        user.setUpdated(now());
+        return Objects.equals(1, userMapper.updateUser(user));
     }
 
 }

@@ -41,4 +41,15 @@ public interface UserMapper {
             "values " +
             "(#{username}, #{password}, #{phone}, #{email}, #{status}, #{created}, #{updated})")
     Integer addUser(User user);
+
+    @Select("select * from user " +
+            "where id = #{id}")
+    User findUserById(User user);
+
+    @Update("update user set " +
+                "phone = #{phone}, " +
+                "email = #{email}, " +
+                "updated = #{updated} " + 
+            "where id = #{id}")
+    Integer updateUser(User user);
 }

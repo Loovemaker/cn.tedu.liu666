@@ -63,11 +63,29 @@ public class UserController {
 
     /**
      * 用户新增
+     * <p>http method: post</p>
      * @return 应该为success
      */
     @PostMapping("addUser")
     public SysResult addUser(@RequestBody User user) {
         return userService.addUser(user)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    /**
+     *  根据ID查询用户信息
+     *  <p>用户修改</p>
+     */
+    @GetMapping("{id}")
+    public SysResult updateUsergetuserById(User user) {
+        System.out.println(user);
+        return SysResult.success(userService.getuserById(user));
+    }
+
+    @PutMapping("updateUser")
+    public SysResult updateUser(@RequestBody User user) {
+        return userService.updateUser(user)
                 ? SysResult.success()
                 : SysResult.failed();
     }
