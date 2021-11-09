@@ -49,7 +49,11 @@ public interface UserMapper {
     @Update("update user set " +
                 "phone = #{phone}, " +
                 "email = #{email}, " +
-                "updated = #{updated} " + 
+                "updated = #{updated} " +
             "where id = #{id}")
     Integer updateUser(User user);
+
+    @Delete("delete from user " +
+            "where id = #{id}")
+    Integer deleteUser(Integer id);
 }

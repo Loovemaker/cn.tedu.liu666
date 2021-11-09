@@ -21,4 +21,6 @@ public interface UserService {
     User getuserById(User user);
 
     Boolean updateUser(User user);
+
+    Boolean deleteUser(Integer id);
 }

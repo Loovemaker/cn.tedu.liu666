@@ -102,4 +102,9 @@ public class UserServiceImpl implements UserService{
         return Objects.equals(1, userMapper.updateUser(user));
     }
 
+    @Override
+    public Boolean deleteUser(Integer id) {
+        return Objects.equals(1, userMapper.deleteUser(id));
+    }
+
 }

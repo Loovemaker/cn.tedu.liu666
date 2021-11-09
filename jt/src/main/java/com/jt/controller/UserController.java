@@ -79,13 +79,22 @@ public class UserController {
      */
     @GetMapping("{id}")
     public SysResult updateUsergetuserById(User user) {
-        System.out.println(user);
         return SysResult.success(userService.getuserById(user));
     }
 
     @PutMapping("updateUser")
     public SysResult updateUser(@RequestBody User user) {
         return userService.updateUser(user)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    /**
+     * 根据ID删除用户
+     */
+    @DeleteMapping("{id}")
+    public SysResult deleteUser(@PathVariable Integer id) {
+        return userService.deleteUser(id)
                 ? SysResult.success()
                 : SysResult.failed();
     }
