@@ -20,12 +20,12 @@ public interface UserMapper {
     @Select("select count(true) from user")
     Long getTotal();
 
-    @Select(
-            "select * from user " +
-            "where username like concat('%',#{query},'%') " +
-            "limit #{size} offset #{beginPage} "
-
-    )
+//    @Select(
+//            "select * from user " +
+//                    "where username like concat('%',#{query},'%') " +
+//                    "limit #{size} offset #{beginPage} "
+//
+//    )
     List<User> findUserByPage(
             @Param("size")      Integer size,
             @Param("beginPage") Integer beginPage,
