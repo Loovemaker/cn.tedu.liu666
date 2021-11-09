@@ -23,6 +23,12 @@ mybatis:
     map-underscore-to-camel-case: true
   # 一二级缓存默认开始 所以可以简化
 
+mybatis-plus:
+  type-aliases-package: com.jt.pojo
+  mapper-locations: classpath:/mybatis/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
 #打印mysql日志
 logging:
   level:
