@@ -4,6 +4,7 @@ import com.jt.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 public interface UserMapper {
@@ -31,4 +32,10 @@ public interface UserMapper {
             @Param("beginPage") Integer beginPage,
             @Param("query")     String  query
     );
+
+    @Update("update user set " +
+                "status = #{status}, " +
+                "updated = #{updated} " +
+            "where id = #{id}")
+    Integer updateStatus(User user);
 }

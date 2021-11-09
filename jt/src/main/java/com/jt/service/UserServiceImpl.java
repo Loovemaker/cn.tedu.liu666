@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -67,4 +68,12 @@ public class UserServiceImpl implements UserService{
                 .setTotal(total)
                 .setRows(rows);
     }
+
+    @Override
+    public Boolean updateStatus(User user) {
+        user.setUpdated(new Date());
+        final Integer rows = userMapper.updateStatus(user);
+        return Objects.equals(rows, 1);
+    }
+
 }

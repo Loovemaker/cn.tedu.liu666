@@ -4,6 +4,7 @@ import com.jt.pojo.User;
 import com.jt.service.UserService;
 import com.jt.vo.PageResult;
 import com.jt.vo.SysResult;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,5 +47,17 @@ public class UserController {
     public SysResult getUserList(PageResult pageResult) {
         pageResult = userService.getUserList(pageResult);
         return SysResult.success(pageResult);
+    }
+
+    /**
+     * 用户状态修改
+     * <p>http method: put</p>
+     * @return  应该为success
+     */
+    @PutMapping("status/{id}/{status}")
+    public SysResult updateStatus(User user) {
+        return userService.updateStatus(user)
+                ? SysResult.success()
+                : SysResult.failed();
     }
 }
