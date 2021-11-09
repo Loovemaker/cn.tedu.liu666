@@ -31,7 +31,6 @@ public interface UserMapper {
     );
 
     @Update("update user set " +
-                "username = #{username}, " +
                 "status = #{status}, " +
                 "updated = #{updated} " +
             "where id = #{id}")
@@ -48,6 +47,7 @@ public interface UserMapper {
     User findUserById(User user);
 
     @Update("update user set " +
+                "username = #{username}, " +
                 "phone = #{phone}, " +
                 "email = #{email}, " +
                 "updated = #{updated} " +
