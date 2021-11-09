@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
         Integer
                 size = pageResult.getPageSize(),
                 beginPage = size * (pageResult.getPageNum() - 1);
-        List<User> rows = userMapper.findUserByPage(size, beginPage);
+        List<User> rows = userMapper.findUserByPage(size, beginPage, pageResult.getQuery());
 
         return pageResult
                 .setTotal(total)
