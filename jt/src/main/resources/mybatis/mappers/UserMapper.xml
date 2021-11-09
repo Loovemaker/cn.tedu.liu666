@@ -5,5 +5,16 @@
 
 <mapper namespace="com.jt.mapper.UserMapper">
 
+    <select id="findUserByPage" parameterType="map" resultType="User">
+        select * from user
+        <where>
+            <if test="query != null and query != ''">
+                username like concat('%',#{query},'%') or
+                phone    like concat('%',#{query},'%') or
+                email    like concat('%',#{query},'%')
+            </if>
+        </where>
+        limit #{size} offset #{beginPage}
+    </select>
 
 </mapper>
