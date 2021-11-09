@@ -31,6 +31,7 @@ public interface UserMapper {
     );
 
     @Update("update user set " +
+                "username = #{username}, " +
                 "status = #{status}, " +
                 "updated = #{updated} " +
             "where id = #{id}")
