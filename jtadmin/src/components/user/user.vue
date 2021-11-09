@@ -100,7 +100,7 @@
       <!-- 定义用户提交表单数据-->
       <el-form :model="updateUserModel" :rules="rules" ref="updateUserRef" label-width="100px">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="updateUserModel.username"  disabled ></el-input>
+          <el-input v-model="updateUserModel.username"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model="updateUserModel.phone"></el-input>
@@ -268,6 +268,7 @@
            if(!valid)  return this.$message.error("表单验证没有通过")
            //根据接口文档要求封装数据
            let user = {}
+           user.username = this.updateUserModel.username
            user.id = this.updateUserModel.id
            user.phone = this.updateUserModel.phone
            user.email = this.updateUserModel.email
@@ -289,6 +290,7 @@
          //如果确认  confirm  如果取消 cancel
          if(result !== 'confirm'){
             this.$message.info("删除取消")
+            return
          }
          const {data: result2} = await this.$http.delete(`/user/${user.id}`)
          if(result2.status !== 200) return this.$message.error("删除失败")
