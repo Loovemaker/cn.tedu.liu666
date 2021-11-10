@@ -1,8 +1,13 @@
 package com.jt.vo;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.jt.pojo.User;
 import lombok.*;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 
 @Data

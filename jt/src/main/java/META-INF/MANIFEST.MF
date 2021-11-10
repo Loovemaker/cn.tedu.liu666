@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Main-Class: com.jt.JtApplication
+Class-Path: spring-boot-autoconfigure-2.3.7.RELEASE.jar spring-boot-star
+ ter-logging-2.3.7.RELEASE.jar snakeyaml-1.26.jar mybatis-plus-annotatio
+ n-3.4.3.jar mybatis-plus-3.4.3.jar jakarta.el-3.0.3.jar spring-tx-5.2.1
+ 2.RELEASE.jar spring-jdbc-5.2.12.RELEASE.jar mybatis-spring-boot-autoco
+ nfigure-2.2.0.jar spring-context-5.2.12.RELEASE.jar log4j-api-2.13.3.ja
+ r spring-boot-starter-tomcat-2.3.7.RELEASE.jar mybatis-spring-2.0.6.jar
+  spring-web-5.2.12.RELEASE.jar mybatis-spring-boot-starter-2.2.0.jar my
+ sql-connector-java-8.0.22.jar mybatis-plus-boot-starter-3.4.3.jar jakar
+ ta.annotation-api-1.3.5.jar jackson-annotations-2.11.3.jar spring-boot-
+ starter-2.3.7.RELEASE.jar spring-aop-5.2.12.RELEASE.jar logback-core-1.
+ 2.3.jar mybatis-3.5.7.jar HikariCP-3.4.5.jar jackson-datatype-jdk8-2.11
+ .3.jar jackson-databind-2.11.3.jar jsqlparser-4.0.jar spring-core-5.2.1
+ 2.RELEASE.jar spring-expression-5.2.12.RELEASE.jar spring-boot-starter-
+ json-2.3.7.RELEASE.jar slf4j-api-1.7.30.jar spring-boot-starter-web-2.3
+ .7.RELEASE.jar spring-boot-starter-jdbc-2.3.7.RELEASE.jar mybatis-plus-
+ core-3.4.3.jar spring-jcl-5.2.12.RELEASE.jar jul-to-slf4j-1.7.30.jar ja
+ ckson-datatype-jsr310-2.11.3.jar jackson-core-2.11.3.jar tomcat-embed-w
+ ebsocket-9.0.41.jar jackson-module-parameter-names-2.11.3.jar spring-be
+ ans-5.2.12.RELEASE.jar log4j-to-slf4j-2.13.3.jar spring-boot-2.3.7.RELE
+ ASE.jar lombok-1.18.16.jar mybatis-plus-extension-3.4.3.jar logback-cla
+ ssic-1.2.3.jar spring-webmvc-5.2.12.RELEASE.jar tomcat-embed-core-9.0.4
+ 1.jar
+
