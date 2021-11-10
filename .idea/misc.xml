@@ -8,11 +8,12 @@
         <option value="$PROJECT_DIR$/demo3/pom.xml" />
         <option value="$PROJECT_DIR$/ssm/pom.xml" />
         <option value="$PROJECT_DIR$/jt/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot_mp/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis_plus/pom.xml" />
       </list>
     </option>
   </component>
   <component name="PWA">
-    <option name="enabled" value="true" />
     <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="Java 8 LTS (OpenJDK)" project-jdk-type="JavaSDK">

@@ -10,6 +10,7 @@
         <module name="demo3" />
         <module name="jt" />
         <module name="ssm" />
+        <module name="mybatis_plus" />
         <module name="demo1" />
         <module name="demo2" />
       </profile>
@@ -19,6 +20,7 @@
       <module name="demo2" target="1.8" />
       <module name="demo3" target="1.8" />
       <module name="jt" target="1.8" />
+      <module name="mybatis_plus" target="1.8" />
       <module name="ssm" target="1.8" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
