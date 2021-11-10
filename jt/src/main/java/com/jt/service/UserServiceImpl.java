@@ -5,6 +5,7 @@ import com.jt.pojo.User;
 import com.jt.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
@@ -71,6 +72,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public Boolean updateStatus(User user) {
         user.setUpdated(now());
         final Integer rows = userMapper.updateStatus(user);
@@ -78,6 +80,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public Boolean addUser(User user) {
         final Boolean defaultStatus = true;
         final Date now = now();
@@ -97,12 +100,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public Boolean updateUser(User user) {
         user.setUpdated(now());
         return Objects.equals(1, userMapper.updateUser(user));
     }
 
     @Override
+    @Transactional
     public Boolean deleteUser(Integer id) {
         return Objects.equals(1, userMapper.deleteUser(id));
     }
