@@ -10,6 +10,7 @@ import lombok.val;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.*;
@@ -29,6 +30,7 @@ public class ItemCatServiceImpl implements ItemCatService{
     }
 
     @Override
+    @Transactional
     public Boolean updateStatus(Integer id, Boolean status) {
         val rows = mapper.updateById(new ItemCat()
                 .setId(id)
@@ -38,6 +40,7 @@ public class ItemCatServiceImpl implements ItemCatService{
     }
 
     @Override
+    @Transactional
     public Boolean saveItemCat(ItemCat itemCat) {
         val now = TimeUtils.now();
         itemCat
@@ -60,6 +63,7 @@ public class ItemCatServiceImpl implements ItemCatService{
     }
 
     @Override
+    @Transactional
     public Boolean updateItemCat(ItemCat itemCat) {
         itemCat.setCreated(TimeUtils.now());
         val rows = mapper.updateById(itemCat);
@@ -67,6 +71,7 @@ public class ItemCatServiceImpl implements ItemCatService{
     }
 
     @Override
+    @Transactional
     public Boolean deleteItemCat(ItemCat itemCat) {
         var rows = 0;
 
