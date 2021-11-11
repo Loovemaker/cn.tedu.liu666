@@ -2,10 +2,13 @@ package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.mapper.ItemCatMapper;
+import com.jt.misc.TimeUtils;
 import com.jt.pojo.ItemCat;
 import lombok.val;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.*;
 
@@ -13,6 +16,7 @@ import java.util.*;
 public class ItemCatServiceImpl implements ItemCatService{
 
     @Autowired private ItemCatMapper mapper;
+
     final QueryWrapper<ItemCat> queryWrapper = new QueryWrapper<>();
 
     @Override
@@ -28,6 +32,28 @@ public class ItemCatServiceImpl implements ItemCatService{
                 .setId(id)
                 .setStatus(status)
         );
+        return Objects.equals(1, rows);
+    }
+
+    @Override
+    public Boolean saveItemCat(ItemCat itemCat) {
+        val now = TimeUtils.now();
+        itemCat
+                .setStatus(true)
+                .setCreated(now).setUpdated(now);
+        val parent = mapper.selectById(itemCat.getParentId());
+
+        // check if is parent
+        Assert.isTrue(
+                Objects.equals(parent.getId(), itemCat.getParentId()),
+                "Error parameter of input: itemcat.id"
+        );
+        Assert.isTrue(
+                Objects.equals(parent.getLevel() + 1, itemCat.getLevel()),
+                "Error parameter of input: itemcat.level"
+        );
+
+        val rows = mapper.insert(itemCat);
         return Objects.equals(1, rows);
     }
 
@@ -62,10 +88,12 @@ public class ItemCatServiceImpl implements ItemCatService{
     ) {
         if (!(itemCat.getLevel() < maxLevel)) return;
 
-        val children = target.get(itemCat.getId());
+        var children = target.get(itemCat.getId());
+        if (Objects.isNull(children)) children = new LinkedList<>();
         if (!children.isEmpty()) {
+            List<ItemCat> finalChildren = children;
             children.forEach(itemCat1 -> {
-                itemCat.setChildren(children);
+                itemCat.setChildren(finalChildren);
                 fillChildren(target, itemCat1, maxLevel);
             });
         }

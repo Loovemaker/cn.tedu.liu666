@@ -9,4 +9,6 @@ public interface ItemCatService {
     List<ItemCat> findItemCatList(Integer level);
 
     Boolean updateStatus(Integer id, Boolean status);
+
+    Boolean saveItemCat(ItemCat itemCat);
 }

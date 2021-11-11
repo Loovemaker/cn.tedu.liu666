@@ -27,8 +27,14 @@ public class ItemCatController {
 
     @PutMapping("status/{id}/{status}")
     public SysResult updateStatus(@PathVariable Integer id, @PathVariable Boolean status) {
-        val isChanged = service.updateStatus(id, status);
-        return isChanged
+        return service.updateStatus(id, status)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    @PostMapping("saveItemCat")
+    public SysResult saveItemCat(@RequestBody ItemCat itemCat) {
+        return service.saveItemCat(itemCat)
                 ? SysResult.success()
                 : SysResult.failed();
     }
