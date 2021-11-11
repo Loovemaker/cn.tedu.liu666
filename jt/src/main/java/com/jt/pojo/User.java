@@ -1,5 +1,7 @@
 package com.jt.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -12,7 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("user")
 public class User extends BasePojo{
-    private Integer id;
+    @TableId(type = IdType.AUTO) private Integer id;
     private String username;
     private String password;
     private String phone;
