@@ -7,10 +7,7 @@ import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ItemCatServiceImpl implements ItemCatService{
@@ -23,6 +20,15 @@ public class ItemCatServiceImpl implements ItemCatService{
         val ROOT_PARENT = 0;
         return fillChildren(getAllItemCatMapByParentId(), level)
                 .get(ROOT_PARENT);
+    }
+
+    @Override
+    public Boolean updateStatus(Integer id, Boolean status) {
+        val rows = mapper.updateById(new ItemCat()
+                .setId(id)
+                .setStatus(status)
+        );
+        return Objects.equals(1, rows);
     }
 
     Map<Integer, List<ItemCat>> getAllItemCatMapByParentId() {

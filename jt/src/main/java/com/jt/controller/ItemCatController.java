@@ -24,4 +24,12 @@ public class ItemCatController {
                 ? SysResult.success(data)
                 : SysResult.failed();
     }
+
+    @PutMapping("status/{id}/{status}")
+    public SysResult updateStatus(@PathVariable Integer id, @PathVariable Boolean status) {
+        val isChanged = service.updateStatus(id, status);
+        return isChanged
+                ? SysResult.success()
+                : SysResult.failed();
+    }
 }
