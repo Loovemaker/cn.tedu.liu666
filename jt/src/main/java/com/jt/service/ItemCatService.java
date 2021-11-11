@@ -1,7 +1,6 @@
 package com.jt.service;
 
 import com.jt.pojo.ItemCat;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 
@@ -11,4 +10,6 @@ public interface ItemCatService {
     Boolean updateStatus(Integer id, Boolean status);
 
     Boolean saveItemCat(ItemCat itemCat);
+
+    Boolean updateItemCat(ItemCat itemCat);
 }

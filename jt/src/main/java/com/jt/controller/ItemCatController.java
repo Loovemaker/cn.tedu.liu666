@@ -7,7 +7,6 @@ import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -35,6 +34,13 @@ public class ItemCatController {
     @PostMapping("saveItemCat")
     public SysResult saveItemCat(@RequestBody ItemCat itemCat) {
         return service.saveItemCat(itemCat)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    @PutMapping("updateItemCat")
+    public SysResult updateItemCat(@RequestBody ItemCat itemCat) {
+        return service.updateItemCat(itemCat)
                 ? SysResult.success()
                 : SysResult.failed();
     }

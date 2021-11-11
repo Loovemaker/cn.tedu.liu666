@@ -57,6 +57,13 @@ public class ItemCatServiceImpl implements ItemCatService{
         return Objects.equals(1, rows);
     }
 
+    @Override
+    public Boolean updateItemCat(ItemCat itemCat) {
+        itemCat.setCreated(TimeUtils.now());
+        val rows = mapper.updateById(itemCat);
+        return Objects.equals(1, rows);
+    }
+
     Map<Integer, List<ItemCat>> getAllItemCatMapByParentId() {
         val parentIdMap = new HashMap<Integer, List<ItemCat>>();
         mapper.selectList(null).forEach(itemCat -> {
