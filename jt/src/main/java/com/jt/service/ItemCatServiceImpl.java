@@ -2,7 +2,9 @@ package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.mapper.ItemCatMapper;
+import com.jt.misc.MybatisPlusUtils;
 import com.jt.misc.TimeUtils;
+import com.jt.pojo.Item;
 import com.jt.pojo.ItemCat;
 import lombok.val;
 import lombok.var;
@@ -62,6 +64,26 @@ public class ItemCatServiceImpl implements ItemCatService{
         itemCat.setCreated(TimeUtils.now());
         val rows = mapper.updateById(itemCat);
         return Objects.equals(1, rows);
+    }
+
+    @Override
+    public Boolean deleteItemCat(ItemCat itemCat) {
+        var rows = 0;
+
+        List<Integer> targetIds = new LinkedList<>();
+        targetIds.add(itemCat.getId());
+
+        while (!targetIds.isEmpty()) {
+            List<Integer> childrenIds = new LinkedList<>();
+            rows += mapper.deleteBatchIds(targetIds);
+
+            List<Integer> newTargetIds = new LinkedList<>();
+            mapper.selectObjs(new QueryWrapper<ItemCat>()
+                    .in("parent_id", targetIds)
+            ).forEach(o -> newTargetIds.add((Integer) o));
+            targetIds = newTargetIds;
+        }
+        return rows != 0;
     }
 
     Map<Integer, List<ItemCat>> getAllItemCatMapByParentId() {

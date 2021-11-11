@@ -1,5 +1,6 @@
 package com.jt.controller;
 
+import com.jt.pojo.Item;
 import com.jt.pojo.ItemCat;
 import com.jt.service.ItemCatService;
 import com.jt.vo.SysResult;
@@ -41,6 +42,13 @@ public class ItemCatController {
     @PutMapping("updateItemCat")
     public SysResult updateItemCat(@RequestBody ItemCat itemCat) {
         return service.updateItemCat(itemCat)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    @DeleteMapping("deleteItemCat")
+    public SysResult deleteItemCat(ItemCat itemCat) {
+        return service.deleteItemCat(itemCat)
                 ? SysResult.success()
                 : SysResult.failed();
     }

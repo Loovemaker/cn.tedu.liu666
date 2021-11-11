@@ -12,4 +12,6 @@ public interface ItemCatService {
     Boolean saveItemCat(ItemCat itemCat);
 
     Boolean updateItemCat(ItemCat itemCat);
+
+    Boolean deleteItemCat(ItemCat itemCat);
 }
