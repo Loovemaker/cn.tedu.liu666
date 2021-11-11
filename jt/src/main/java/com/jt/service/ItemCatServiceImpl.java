@@ -2,16 +2,13 @@ package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.mapper.ItemCatMapper;
-import com.jt.pojo.Item;
+import com.jt.misc.MybatisPlusUtils;
 import com.jt.pojo.ItemCat;
-import jdk.jfr.internal.EventWriterMethod;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class ItemCatServiceImpl implements ItemCatService{
@@ -23,34 +20,31 @@ public class ItemCatServiceImpl implements ItemCatService{
     public List<ItemCat> findItemCatList(Integer level) {
         if (!(level > 0)) return null;
 
-        List<ItemCat> itemCatWithoutChildren;
-        synchronized (queryWrapper) {
-            queryWrapper.clear();
-            itemCatWithoutChildren = mapper.selectList(queryWrapper
+        AtomicReference<List<ItemCat>> itemCatsWithoutChildren = new AtomicReference<>();
+        MybatisPlusUtils.wrapperExecution(queryWrapper, itemCatWrapper ->
+            itemCatsWithoutChildren.set(mapper.selectList(queryWrapper
                     .eq("level", 1)
                     .eq("parent_id", 0)
-            );
-        }
-        
-        return fillItemCatChildren(itemCatWithoutChildren, level);
+            ))
+        );
+        return fillItemCatChildren(itemCatsWithoutChildren.get(), level);
     }
 
     List<ItemCat> fillItemCatChildren(List<ItemCat> target, Integer maxLevel) {
         target.forEach(item -> {
             if (!(item.getLevel() < maxLevel)) return;
 
-            List<ItemCat> children;
-            synchronized (queryWrapper) {
-                queryWrapper.clear();
-                children = mapper.selectList(queryWrapper
-                        .eq("level", item.getLevel() + 1)
-                        .eq("parent_id", item.getId())
-                );
-            }
+            AtomicReference<List<ItemCat>> children = new AtomicReference<>();
+            MybatisPlusUtils.wrapperExecution(queryWrapper, itemCatWrapper ->
+                    children.set(mapper.selectList(queryWrapper
+                            .eq("level", item.getLevel() + 1)
+                            .eq("parent_id", item.getId())
+                    ))
+            );
 
-            if (!children.isEmpty()) {
-                fillItemCatChildren(children, maxLevel);
-                item.setChildren(children);
+            if (!children.get().isEmpty()) {
+                fillItemCatChildren(children.get(), maxLevel);
+                item.setChildren(children.get());
             }
         });
         return target;
