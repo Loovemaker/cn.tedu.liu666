@@ -1,5 +1,8 @@
 package com.jt.pojo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -10,6 +13,6 @@ import java.util.Date;
 @Data
 @Accessors(chain=true)
 public class BasePojo implements Serializable{
-	private Date created;	//表示入库时需要赋值
-	private Date updated;	//表示入库/更新时赋值.
+	@TableField(fill = FieldFill.INSERT)		private Date created;	//表示入库时需要赋值
+	@TableField(fill = FieldFill.INSERT_UPDATE)	private Date updated;	//表示入库/更新时赋值.
 }

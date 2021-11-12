@@ -14,6 +14,7 @@ import java.util.List;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class PageResult {
     private String  query;
     private Integer pageNum;

@@ -1,8 +1,6 @@
 package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jt.mapper.UserMapper;
 import com.jt.pojo.User;
 import com.jt.vo.PageResult;
@@ -12,15 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
-
-    Date now() { return new Date(); }
 
     @Autowired
     private UserMapper userMapper;
@@ -80,7 +75,6 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public Boolean updateStatus(User user) {
-        user.setUpdated(now());
         val rows = userMapper.updateById(user);
         return Objects.equals(rows, 1);
     }
@@ -89,12 +83,10 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public Boolean addUser(User user) {
         val defaultStatus = true;
-        val now = now();
 
         user
                 .setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))
-                .setStatus(defaultStatus)
-                .setCreated(now).setUpdated(now);
+                .setStatus(defaultStatus);
 
         val rows = userMapper.insert(user);
         return Objects.equals(rows, 1);
@@ -108,7 +100,6 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public Boolean updateUser(User user) {
-        user.setUpdated(now());
         val rows = userMapper.updateById(user);
         return Objects.equals(1, rows);
     }
