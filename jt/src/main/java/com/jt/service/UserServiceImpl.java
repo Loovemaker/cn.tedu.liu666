@@ -20,11 +20,11 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper mapper;
 
     @Override
     public List<User> findAll() {
-        return userMapper.selectList(null);
+        return mapper.selectList(null);
     }
 
     /**
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
 
         // 获取
-        val users = userMapper.selectList(new QueryWrapper<User>()
+        val users = mapper.selectList(new QueryWrapper<User>()
                 .eq("username", user.getUsername())
                 .eq("password", user.getPassword())
         );
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
     public PageResult getUserList(PageResult pageResult) {
 
         val query = pageResult.getQuery();
-        val page = userMapper.selectPage(
+        val page = mapper.selectPage(
                 new Page<>(
                         pageResult.getPageNum(),
                         pageResult.getPageSize()
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public Boolean updateStatus(User user) {
-        val rows = userMapper.updateById(user);
+        val rows = mapper.updateById(user);
         return Objects.equals(rows, 1);
     }
 
@@ -95,26 +95,26 @@ public class UserServiceImpl implements UserService{
                 .setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))
                 .setStatus(defaultStatus);
 
-        val rows = userMapper.insert(user);
+        val rows = mapper.insert(user);
         return Objects.equals(rows, 1);
     }
 
     @Override
     public User getuserById(User user) {
-        return userMapper.selectById(user.getId());
+        return mapper.selectById(user.getId());
     }
 
     @Override
     @Transactional
     public Boolean updateUser(User user) {
-        val rows = userMapper.updateById(user);
+        val rows = mapper.updateById(user);
         return Objects.equals(1, rows);
     }
 
     @Override
     @Transactional
     public Boolean deleteUser(Integer id) {
-        val rows = userMapper.deleteById(id);
+        val rows = mapper.deleteById(id);
         return Objects.equals(1, rows);
     }
 

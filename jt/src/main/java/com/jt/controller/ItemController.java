@@ -2,6 +2,7 @@ package com.jt.controller;
 
 import com.jt.pojo.Item;
 import com.jt.service.ItemService;
+import com.jt.vo.ItemVO;
 import com.jt.vo.PageResult;
 import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class ItemController {
     @DeleteMapping("deleteItemById")
     public SysResult deleteItemById(Integer id) {
         return service.deleteItemById(id)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    @PostMapping("saveItem")
+    public SysResult saveItem(@RequestBody ItemVO itemVO) {
+        return service.saveItem(itemVO)
                 ? SysResult.success()
                 : SysResult.failed();
     }
