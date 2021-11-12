@@ -1,13 +1,11 @@
 package com.jt.controller;
 
+import com.jt.pojo.Item;
 import com.jt.service.ItemService;
 import com.jt.vo.PageResult;
 import com.jt.vo.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -20,5 +18,19 @@ public class ItemController {
     public SysResult getItemList(PageResult pageResult) {
         pageResult = service.getItemList(pageResult);
         return SysResult.success(pageResult);
+    }
+
+    @PutMapping("updateItemStatus")
+    public SysResult updateItemStatus(@RequestBody Item item) {
+        return service.updateItemStatus(item)
+                ? SysResult.success()
+                : SysResult.failed();
+    }
+
+    @DeleteMapping("deleteItemById")
+    public SysResult deleteItemById(Integer id) {
+        return service.deleteItemById(id)
+                ? SysResult.success()
+                : SysResult.failed();
     }
 }
