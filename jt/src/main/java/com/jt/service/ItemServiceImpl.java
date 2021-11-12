@@ -45,8 +45,9 @@ public class ItemServiceImpl implements ItemService{
     @Override
     @Transactional
     public Boolean deleteItemById(Integer id) {
-        val rows = itemMapper.deleteById(id);
-        return rows == 1;
+        val itemRows = itemMapper.deleteById(id);
+        val itemDescRows = itemDescMapper.deleteById(id);
+        return itemRows == 1 || itemDescRows == 1;
     }
 
     @Override
