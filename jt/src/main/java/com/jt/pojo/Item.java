@@ -1,16 +1,22 @@
 package com.jt.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * @author 刘昱江
  * 时间 2021/4/7
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
+@TableName("item")
 public class Item extends BasePojo{
-    private Integer id;         //商品Id号
+    @TableId(type = IdType.AUTO) private Integer id;         //商品Id号
     private String title;       //商品标题信息
     private String sellPoint;   //卖点信息
     private Integer price;      //商品价格

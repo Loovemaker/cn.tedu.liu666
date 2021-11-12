@@ -2,9 +2,6 @@ package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.mapper.ItemCatMapper;
-import com.jt.misc.MybatisPlusUtils;
-import com.jt.misc.TimeUtils;
-import com.jt.pojo.Item;
 import com.jt.pojo.ItemCat;
 import lombok.val;
 import lombok.var;
@@ -19,8 +16,6 @@ import java.util.*;
 public class ItemCatServiceImpl implements ItemCatService{
 
     @Autowired private ItemCatMapper mapper;
-
-    final QueryWrapper<ItemCat> queryWrapper = new QueryWrapper<>();
 
     @Override
     public List<ItemCat> findItemCatList(Integer level) {
@@ -42,10 +37,7 @@ public class ItemCatServiceImpl implements ItemCatService{
     @Override
     @Transactional
     public Boolean saveItemCat(ItemCat itemCat) {
-        val now = TimeUtils.now();
-        itemCat
-                .setStatus(true)
-                .setCreated(now).setUpdated(now);
+        itemCat.setStatus(true);
         val parent = mapper.selectById(itemCat.getParentId());
 
         // check if is parent
@@ -65,7 +57,6 @@ public class ItemCatServiceImpl implements ItemCatService{
     @Override
     @Transactional
     public Boolean updateItemCat(ItemCat itemCat) {
-        itemCat.setCreated(TimeUtils.now());
         val rows = mapper.updateById(itemCat);
         return Objects.equals(1, rows);
     }
@@ -79,7 +70,6 @@ public class ItemCatServiceImpl implements ItemCatService{
         targetIds.add(itemCat.getId());
 
         while (!targetIds.isEmpty()) {
-            List<Integer> childrenIds = new LinkedList<>();
             rows += mapper.deleteBatchIds(targetIds);
 
             List<Integer> newTargetIds = new LinkedList<>();
@@ -88,6 +78,7 @@ public class ItemCatServiceImpl implements ItemCatService{
             ).forEach(o -> newTargetIds.add((Integer) o));
             targetIds = newTargetIds;
         }
+
         return rows != 0;
     }
 

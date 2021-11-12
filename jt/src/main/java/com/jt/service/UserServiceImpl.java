@@ -1,7 +1,6 @@
 package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jt.mapper.UserMapper;
 import com.jt.pojo.User;
@@ -11,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,14 +19,12 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService{
 
-    Date now() { return new Date(); }
-
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper mapper;
 
     @Override
     public List<User> findAll() {
-        return userMapper.selectList(null);
+        return mapper.selectList(null);
     }
 
     /**
@@ -52,7 +49,7 @@ public class UserServiceImpl implements UserService{
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
 
         // 获取
-        val users = userMapper.selectList(new QueryWrapper<User>()
+        val users = mapper.selectList(new QueryWrapper<User>()
                 .eq("username", user.getUsername())
                 .eq("password", user.getPassword())
         );
@@ -66,22 +63,26 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public PageResult getUserList(PageResult pageResult) {
-        Long total = Long.valueOf(userMapper.selectCount(null));
 
-        val size = pageResult.getPageSize();
-        val beginPage = size * (pageResult.getPageNum() - 1);
-        List<User> rows = userMapper.findUserByPage(size, beginPage, pageResult.getQuery());
+        val query = pageResult.getQuery();
+        val page = mapper.selectPage(
+                new Page<>(
+                        pageResult.getPageNum(),
+                        pageResult.getPageSize()
+                ),
+                new QueryWrapper<User>()
+                        .like(StringUtils.hasLength(query), "username", query)
+        );
 
         return pageResult
-                .setTotal(total)
-                .setRows(rows);
+                .setTotal(page.getTotal())
+                .setRows(page.getRecords());
     }
 
     @Override
     @Transactional
     public Boolean updateStatus(User user) {
-        user.setUpdated(now());
-        val rows = userMapper.updateById(user);
+        val rows = mapper.updateById(user);
         return Objects.equals(rows, 1);
     }
 
@@ -89,34 +90,31 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public Boolean addUser(User user) {
         val defaultStatus = true;
-        val now = now();
 
         user
                 .setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))
-                .setStatus(defaultStatus)
-                .setCreated(now).setUpdated(now);
+                .setStatus(defaultStatus);
 
-        val rows = userMapper.insert(user);
+        val rows = mapper.insert(user);
         return Objects.equals(rows, 1);
     }
 
     @Override
     public User getuserById(User user) {
-        return userMapper.selectById(user.getId());
+        return mapper.selectById(user.getId());
     }
 
     @Override
     @Transactional
     public Boolean updateUser(User user) {
-        user.setUpdated(now());
-        val rows = userMapper.updateById(user);
+        val rows = mapper.updateById(user);
         return Objects.equals(1, rows);
     }
 
     @Override
     @Transactional
     public Boolean deleteUser(Integer id) {
-        val rows = userMapper.deleteById(id);
+        val rows = mapper.deleteById(id);
         return Objects.equals(1, rows);
     }
 
