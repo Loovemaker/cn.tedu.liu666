@@ -3,7 +3,6 @@ package com.jt.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jt.mapper.UserMapper;
-import com.jt.pojo.Item;
 import com.jt.pojo.User;
 import com.jt.vo.PageResult;
 import lombok.val;
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService{
 
         val query = pageResult.getQuery();
         val page = userMapper.selectPage(
-                new Page<User>(
+                new Page<>(
                         pageResult.getPageNum(),
                         pageResult.getPageSize()
                 ),

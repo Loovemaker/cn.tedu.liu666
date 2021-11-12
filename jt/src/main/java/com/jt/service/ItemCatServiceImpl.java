@@ -2,9 +2,6 @@ package com.jt.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jt.mapper.ItemCatMapper;
-import com.jt.misc.MybatisPlusUtils;
-import com.jt.misc.TimeUtils;
-import com.jt.pojo.Item;
 import com.jt.pojo.ItemCat;
 import lombok.val;
 import lombok.var;
@@ -19,8 +16,6 @@ import java.util.*;
 public class ItemCatServiceImpl implements ItemCatService{
 
     @Autowired private ItemCatMapper mapper;
-
-    final QueryWrapper<ItemCat> queryWrapper = new QueryWrapper<>();
 
     @Override
     public List<ItemCat> findItemCatList(Integer level) {
@@ -42,7 +37,6 @@ public class ItemCatServiceImpl implements ItemCatService{
     @Override
     @Transactional
     public Boolean saveItemCat(ItemCat itemCat) {
-        val now = TimeUtils.now();
         itemCat.setStatus(true);
         val parent = mapper.selectById(itemCat.getParentId());
 

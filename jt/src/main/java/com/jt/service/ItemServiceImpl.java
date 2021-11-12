@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService{
     public PageResult getItemList(PageResult pageResult) {
         val query = pageResult.getQuery();
         val page = mapper.selectPage(
-                new Page<Item>(
+                new Page<>(
                         pageResult.getPageNum(),
                         pageResult.getPageSize()
                 ),
