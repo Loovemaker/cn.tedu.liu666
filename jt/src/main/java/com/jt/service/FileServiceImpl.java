@@ -39,13 +39,19 @@ public class FileServiceImpl implements FileService {
         if (!isPicture(file.getInputStream())) throw new java.lang.IllegalArgumentException();
 
         // write file
-        val fileName = DigestUtils.md5DigestAsHex(file.getBytes());
+        val md5DigestAsHex = DigestUtils.md5DigestAsHex(file.getBytes());
+
+        val fileName = md5DigestAsHex + "." + extension;
+
+        val virtualPath = new StringJoiner(delimiter)
+                .add(dirPathFromHome)
+                .add(fileName.substring(0, prefixCount))
+                .toString();
 
         val destinationDir = new File(
                 new StringJoiner(delimiter)
                         .add(homePath)
-                        .add(dirPathFromHome)
-                        .add(fileName.substring(0, prefixCount))
+                        .add(virtualPath)
                         .toString()
         );
 
@@ -55,7 +61,7 @@ public class FileServiceImpl implements FileService {
 
         val destinationPath = new StringJoiner(delimiter)
                 .add(destinationDir.getAbsolutePath())
-                .add(fileName + "." + extension)
+                .add(fileName)
                 .toString();
 
         file.transferTo(Paths.get(destinationPath));
@@ -65,7 +71,7 @@ public class FileServiceImpl implements FileService {
         return new ImageVO(
                 destinationPath,
                 "",
-                fileName + "." + extension
+                fileName
         );
     }
 
