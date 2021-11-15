@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 import java.util.*;
 
 @Service
-public class ItemCatServiceImpl implements ItemCatService{
+public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired private ItemCatMapper mapper;
 
