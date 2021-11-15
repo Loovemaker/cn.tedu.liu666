@@ -6,9 +6,6 @@ import lombok.val;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
