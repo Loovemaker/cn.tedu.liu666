@@ -7,4 +7,6 @@ import java.io.IOException;
 
 public interface FileService {
     ImageVO upload(MultipartFile file) throws IOException;
+
+    void delete(String virtualPath);
 }
