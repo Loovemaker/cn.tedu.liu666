@@ -2,6 +2,8 @@ package com.jt.service;
 
 import com.jt.vo.ImageVO;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -17,10 +19,11 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @Service
+@PropertySource("classpath:/image.properties")
 public class FileServiceImpl implements FileService {
 
-    static final String homePath = System.getProperty("user.home");
-    static final String dirPathFromHome = "Pictures/tedu";
+    @Value("${image.dirPath}") String dirPath;
+    @Value("${image.host}") String host;
     static final String delimiter = "/";
     static final Integer
             prefixCount1 = 2,
@@ -52,8 +55,7 @@ public class FileServiceImpl implements FileService {
 
         val destinationDir = new File(
                 new StringJoiner(delimiter)
-                        .add(homePath)
-                        .add(dirPathFromHome)
+                        .add(dirPath)
                         .add(virtualDirPath)
                         .toString()
         );
@@ -75,18 +77,23 @@ public class FileServiceImpl implements FileService {
                 .add(fileName)
                 .toString();
 
+        val url = new StringJoiner(delimiter)
+                .add(host)
+                .add(virtualPath)
+                .toString();
         return new ImageVO(
                 virtualPath,
-                "",
+                url,
                 fileName
         );
+
     }
 
     @Override
+    @Transactional
     public void delete(String virtualPath) {
         val destinationPath = new StringJoiner(delimiter)
-                .add(homePath)
-                .add(dirPathFromHome)
+                .add(dirPath)
                 .add(virtualPath)
                 .toString();
 
