@@ -8,10 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="demo3" />
-        <module name="springboot_mp" />
         <module name="jt" />
         <module name="ssm" />
-        <module name="mybatis_plus" />
         <module name="demo1" />
         <module name="demo2" />
       </profile>
